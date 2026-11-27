@@ -1,0 +1,35 @@
+{
+  "name": "@heurica/tap",
+  "version": "0.1.0",
+  "description": "TAP (Text Action Protocol): parse tool-call replies from any chat model, format observations, and run a small agent loop.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "gen:aliases": "node scripts/gen-aliases.mjs",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/fix-dts.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.json --noEmit && node --test --experimental-strip-types test/*.test.ts",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  }
+}

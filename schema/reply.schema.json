@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heurica.dev/tap/schema/reply.schema.json",
+  "title": "TAP reply (canonical form)",
+  "description": "The canonical JSON object a model SHOULD emit inside the fenced block. Lenient parsers accept more forms (SPEC 6); this schema describes the strict form.",
+  "type": "object",
+  "properties": {
+    "say": {
+      "type": "string",
+      "description": "Short message for the user; on the final reply, the answer."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "done": {
+      "type": "boolean"
+    },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "milestone": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "say"
+      ]
+    },
+    {
+      "required": [
+        "actions"
+      ]
+    },
+    {
+      "required": [
+        "plan"
+      ]
+    }
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": [
+        "tool"
+      ],
+      "properties": {
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "args": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

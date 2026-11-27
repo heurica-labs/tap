@@ -1,0 +1,3650 @@
+[
+ {
+  "description": "Reasoning line, then one plain json fence: the fence is read.",
+  "id": "fence-json-plain-valid",
+  "input": "Checking the config first.\n```json\n{\"say\": \"Reading the config.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"config.toml\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "config.toml"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading the config.",
+    "thought": "Checking the config first."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Untagged fence holding a reply object.",
+  "id": "fence-untagged",
+  "input": "```\n{\"say\": \"Listing the tests.\", \"actions\": [{\"tool\": \"glob\", \"args\": {\"pattern\": \"**/*_test.go\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "**/*_test.go"
+      },
+      "tool": "glob"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing the tests.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Fence tagged JSON in capitals.",
+  "id": "fence-tag-uppercase-json",
+  "input": "```JSON\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Fence tagged javascript holding a reply object.",
+  "id": "fence-tag-javascript",
+  "input": "```javascript\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Several sentences of reasoning before the block; the reasoning becomes the thought.",
+  "id": "reasoning-before-block",
+  "input": "The login test fails on the second assertion. I want to see the test body before changing anything, so I will read it.\n\n```json\n{\"say\": \"Reading the login test.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"tests/login.test.ts\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "tests/login.test.ts"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading the login test.",
+    "thought": "The login test fails on the second assertion. I want to see the test body before changing anything, so I will read it."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A swift code fence comes before the reply; the reply's fence is still found.",
+  "id": "swift-fence-before-json",
+  "input": "Here is the function as it stands:\n```swift\nfunc total(_ xs: [Int]) -> Int {\n    xs.reduce(0, +)\n}\n```\nI will rewrite it to handle an empty list.\n```json\n{\"say\": \"Rewriting total() for the empty case.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"Sources/Total.swift\", \"find\": \"xs.reduce(0, +)\", \"replace\": \"xs.isEmpty ? 0 : xs.reduce(0, +)\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "xs.reduce(0, +)",
+       "path": "Sources/Total.swift",
+       "replace": "xs.isEmpty ? 0 : xs.reduce(0, +)"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Rewriting total() for the empty case.",
+    "thought": "Here is the function as it stands:\n```swift\nfunc total(_ xs: [Int]) -> Int {\n    xs.reduce(0, +)\n}\n```\nI will rewrite it to handle an empty list."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A python fence containing dict braces comes first; it is skipped and the reply fence wins.",
+  "id": "python-fence-braces-before-json",
+  "input": "The data looks like this:\n```python\nconfig = {\"debug\": True, \"level\": 3}\nprint(config)\n```\n```json\n{\"say\": \"Turning debug off.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"config.py\", \"find\": \"\\\"debug\\\": True\", \"replace\": \"\\\"debug\\\": False\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "\"debug\": True",
+       "path": "config.py",
+       "replace": "\"debug\": False"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Turning debug off.",
+    "thought": "The data looks like this:\n```python\nconfig = {\"debug\": True, \"level\": 3}\nprint(config)\n```"
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A quoted package.json (a json fence that is not a reply) is skipped; the real reply after it is used.",
+  "id": "package-json-quoted-skipped",
+  "input": "The package file currently reads:\n```json\n{\"name\": \"anvil-demo\", \"version\": \"1.0.0\", \"scripts\": {\"test\": \"jest\"}}\n```\nI will add a lint script next to it.\n```json\n{\"say\": \"Adding a lint script.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"package.json\", \"find\": \"scripts\", \"replace\": \"scripts\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "scripts",
+       "path": "package.json",
+       "replace": "scripts"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Adding a lint script.",
+    "thought": "The package file currently reads:\n```json\n{\"name\": \"anvil-demo\", \"version\": \"1.0.0\", \"scripts\": {\"test\": \"jest\"}}\n```\nI will add a lint script next to it."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Two valid reply blocks: the first runs, the second is ignored and counted.",
+  "id": "two-valid-blocks-first-wins",
+  "input": "```json\n{\"say\": \"Reading the parser.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"parser.swift\"}}], \"done\": false}\n```\n\nAfter that I would edit the file:\n```json\n{\"say\": \"Editing the parser.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"parser.swift\", \"find\": \"a\", \"replace\": \"b\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "parser.swift"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 1,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading the parser.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Three valid reply blocks: the first wins and two are ignored.",
+  "id": "three-valid-blocks",
+  "input": "```json\n{\"say\": \"Step one.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}], \"done\": false}\n```\n```json\n{\"say\": \"Step two.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"pwd\"}}], \"done\": false}\n```\n```json\n{\"say\": \"Step three.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"whoami\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 2,
+    "milestone": null,
+    "plan": [],
+    "say": "Step one.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "The model writes an observation and a final reply after its block; only the first block runs.",
+  "id": "imagined-observation-second-block",
+  "input": "```json\n{\"say\": \"Running the tests.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"npm test\"}}], \"done\": false}\n```\n\n<observation step=\"2\">\nresults of your actions:\n- shell npm test -> ok: 12 passed\n</observation>\n\n```json\n{\"say\": \"All tests pass.\", \"actions\": [], \"done\": true}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "npm test"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 1,
+    "milestone": null,
+    "plan": [],
+    "say": "Running the tests.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence whose write_file content is a Markdown file with its own code fence (section 6.1 step 2).",
+  "id": "nested-fence-in-write-file-content",
+  "input": "I'll write the README.\n```json\n{\"say\": \"Writing the README.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"README.md\", \"content\": \"# Demo\\n\\nRun it:\\n\\n```bash\\nnpm install\\nnpm start\\n```\\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "# Demo\n\nRun it:\n\n```bash\nnpm install\nnpm start\n```\n",
+       "path": "README.md"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the README.",
+    "thought": "I'll write the README."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A single fence whose body starts with { and has a trailing comma.",
+  "id": "single-fence-starts-brace-trailing-comma",
+  "input": "```json\n{\"say\": \"Checking the build log.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"tail -n 20 build.log\"}}], \"done\": false,}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "tail -n 20 build.log"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Checking the build log.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "No fence at all: the outermost {...} in the prose is used.",
+  "id": "no-fence-prose-around-object",
+  "input": "Sure, listing the project first. {\"say\": \"Listing the project.\", \"actions\": [{\"tool\": \"list_dir\", \"args\": {\"path\": \".\"}}]} Tell me if you want more detail.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "."
+      },
+      "tool": "list_dir"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing the project.",
+    "thought": "Sure, listing the project first."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Reply cut off before any closing brace and without a fence (section 6.1 step 5).",
+  "id": "cut-off-no-closing-brace-no-fence",
+  "input": "Writing the notes now.\n{\"say\": \"Writing the notes.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"notes.md\", \"content\": \"Done so far",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "Done so far",
+       "path": "notes.md"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the notes.",
+    "thought": "Writing the notes now."
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence that ends mid-object with no closing fence.",
+  "id": "cut-off-in-fence-missing-brace-and-fence",
+  "input": "```json\n{\"say\": \"Editing.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"a.txt\", \"find\": \"x\", \"replace\": \"y\"}}",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "x",
+       "path": "a.txt",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Editing.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence whose object is complete but whose closing fence is missing.",
+  "id": "unclosed-json-fence-complete-object",
+  "input": "```json\n{\"say\": \"Done.\", \"done\": true}\n",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Done.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Empty reply: no JSON at all, error no_json.",
+  "id": "empty-input-no-json",
+  "input": "",
+  "result": {
+   "error": {
+    "kind": "no_json"
+   },
+   "ok": false
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Prose only: error no_json.",
+  "id": "no-json-at-all",
+  "input": "I cannot help with that request, sorry. Please try again later.",
+  "result": {
+   "error": {
+    "kind": "no_json"
+   },
+   "ok": false
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Text with braces that is not JSON: the outermost-object step finds something that does not parse.",
+  "id": "braces-in-prose-not-json",
+  "input": "The template uses {name} and {count} placeholders, so I will keep the braces as they are.",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "No string key for value in object around line 1, column 1. Near: …⟦HERE⟧{name} and {count}…"
+   },
+   "ok": false
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence that is not reply-shaped and is the only fence: the fallback takes it anyway.",
+  "id": "unrelated-json-fence-alone",
+  "input": "Here is the package file.\n```json\n{\"name\": \"anvil-demo\", \"version\": \"1.0.0\"}\n```",
+  "result": {
+   "ok": false,
+   "error": {
+    "kind": "no_json"
+   }
+  },
+  "section": "6.1",
+  "anvilResult": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "version": "1.0.0"
+      },
+      "tool": "anvil_demo"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": "Here is the package file."
+   }
+  },
+  "divergesFromAnvil": true
+ },
+ {
+  "description": "A json fence holding an array of numbers, which is not reply-shaped.",
+  "id": "json-array-fence-not-actions",
+  "input": "The ids are:\n```json\n[1, 2, 3]\n```",
+  "result": {
+   "ok": false,
+   "error": {
+    "kind": "no_json"
+   }
+  },
+  "section": "6.1",
+  "anvilResult": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": "The ids are:"
+   }
+  },
+  "divergesFromAnvil": true
+ },
+ {
+  "description": "An object whose only reply key is message is reply-shaped; message becomes say.",
+  "id": "shape-message-key-only",
+  "input": "```json\n{\"message\": \"Hello, the build is green.\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Hello, the build is green.",
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An object whose only reply key is answer is reply-shaped.",
+  "id": "shape-answer-key-only",
+  "input": "```json\n{\"answer\": \"The answer is 42.\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The answer is 42.",
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An object whose only reply key is milestone is reply-shaped (nothing else is set).",
+  "id": "shape-milestone-only",
+  "input": "```json\n{\"milestone\": 2}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": 2,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "A json fence holding a top-level array that contains action-shaped objects is reply-shaped.",
+  "id": "shape-array-of-actions-only",
+  "input": "```json\n[{\"tool\": \"shell\", \"args\": {\"command\": \"make\"}}]\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "Trailing commas before } in the action and the reply object.",
+  "id": "repair-trailing-comma-object",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"main.go\",},},], \"done\": false,}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "main.go"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Trailing comma after the last action in the array.",
+  "id": "repair-trailing-comma-array",
+  "input": "```json\n{\"say\": \"Reading two files.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.go\"}}, {\"tool\": \"read_file\", \"args\": {\"path\": \"b.go\"}},], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.go"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "path": "b.go"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading two files.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "// line comments outside strings are removed.",
+  "id": "repair-line-comments",
+  "input": "```json\n{\n  // the file to read\n  \"say\": \"Reading.\", // why\n  \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"main.go\"}}]\n}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "main.go"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Python True and False outside strings become JSON booleans.",
+  "id": "repair-python-true-false",
+  "input": "```json\n{\"say\": \"Turning on the flag.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"config.py\", \"find\": \"enabled = False\", \"replace\": \"enabled = True\", \"dry_run\": False}}], \"done\": True}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "dry_run": false,
+       "find": "enabled = False",
+       "path": "config.py",
+       "replace": "enabled = True"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Turning on the flag.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Python None outside a string (done set to None).",
+  "id": "repair-python-none-done",
+  "input": "```json\n{\"say\": \"Checking.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}], \"done\": None}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Checking.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Curly quotes used as JSON string delimiters.",
+  "id": "repair-curly-quote-delimiters",
+  "input": "```json\n{“say”: “Checking the file.”, “actions”: [{“tool”: “read_file”, “args”: {“path”: “README.md”}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "README.md"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Checking the file.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A raw newline inside the say string is escaped.",
+  "id": "repair-raw-newline-in-string",
+  "input": "```json\n{\"say\": \"Line one of the answer.\nLine two of the answer.\", \"actions\": [], \"done\": true}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Line one of the answer.\nLine two of the answer.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A raw tab inside a string value is escaped.",
+  "id": "repair-raw-tab-in-string",
+  "input": "```json\n{\"say\": \"Aligned columns:\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"table.txt\", \"content\": \"name\tvalue\nalpha\t1\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "name\tvalue\nalpha\t1\n",
+       "path": "table.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Aligned columns:",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A raw carriage return (no line feed) inside a string value is escaped.",
+  "id": "repair-raw-cr-alone-in-string",
+  "input": "```json\n{\"say\": \"Two rows:\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"rows.txt\", \"content\": \"alpha\rbeta\r\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "alpha\rbeta\r",
+       "path": "rows.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Two rows:",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A raw CRLF line ending inside a string value. Spec 6.3 says CR and LF are escaped; a CRLF pair must be escaped too.",
+  "id": "repair-raw-crlf-in-string",
+  "input": "```json\n{\"say\": \"Windows lines:\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"win.txt\", \"content\": \"alpha\r\nbeta\r\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "thought": "",
+    "say": "Windows lines:",
+    "actions": [
+     {
+      "tool": "write_file",
+      "args": {
+       "path": "win.txt",
+       "content": "alpha\r\nbeta\r\n"
+      }
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "plan": [],
+    "milestone": null,
+    "ignoredBlocks": 0
+   }
+  },
+  "section": "6.3",
+  "anvilResult": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "Unescaped control character around line 1, column 106. Near: … \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"win.txt\", \"content\": \"alph⟦HERE⟧a\r\nbeta\r\n\"}}], \"done\": false}…"
+   },
+   "ok": false
+  },
+  "divergesFromAnvil": true
+ },
+ {
+  "description": "The first block is a reply; the second block is not valid JSON. Only valid reply blocks count as ignored.",
+  "id": "ignored-count-skips-invalid-second-block",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}], \"done\": false}\n```\n\nThen I would run:\n```json\n{\"say\": \"Running.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Four valid reply blocks: the first runs and three are ignored.",
+  "id": "ignored-count-four-blocks",
+  "input": "```json\n{\"say\": \"One.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}]}\n```\n```json\n{\"say\": \"Two.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"pwd\"}}]}\n```\n```json\n{\"say\": \"Three.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"date\"}}]}\n```\n```json\n{\"say\": \"Four.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"uname\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 3,
+    "milestone": null,
+    "plan": [],
+    "say": "One.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A plan reply followed by a second reply block: the plan is read from the first, one block is ignored.",
+  "id": "ignored-count-plan-reply-then-block",
+  "input": "```json\n{\"say\": \"Plan first.\", \"plan\": [\"Read the code\", \"Change it\"]}\n```\nThen:\n```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 1,
+    "milestone": null,
+    "plan": [
+     "Read the code",
+     "Change it"
+    ],
+    "say": "Plan first.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A second fence that is a package.json is not a reply, so nothing is counted as ignored.",
+  "id": "ignored-count-second-block-is-package-json",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}], \"done\": false}\n```\n```json\n{\"name\": \"demo\", \"version\": \"1.0.0\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "Single-quoted keys and strings are not JSON and are not a repair: error invalid_json.",
+  "id": "error-single-quoted-keys",
+  "input": "```json\n{'say': 'hi', 'actions': []}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "No string key for value in object around line 1, column 1. Near: …⟦HERE⟧{'say': 'hi', 'actions': []}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Unquoted keys are not a repair: error invalid_json.",
+  "id": "error-unquoted-keys",
+  "input": "```json\n{say: \"hi\", actions: []}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "No string key for value in object around line 1, column 1. Near: …⟦HERE⟧{say: \"hi\", actions: []}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A bare word as a value is not a repair: error invalid_json.",
+  "id": "error-bare-word-value",
+  "input": "```json\n{\"say\": hello}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "Invalid value around line 1, column 8. Near: …{\"say\":⟦HERE⟧ hello}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A bare JSON string with no object or fence: error no_json.",
+  "id": "error-top-level-string-no-json",
+  "input": "\"just a string\"",
+  "result": {
+   "error": {
+    "kind": "no_json"
+   },
+   "ok": false
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence holding a bare number: no object in the text, error no_json.",
+  "id": "error-number-only-fence-no-json",
+  "input": "The answer is:\n```json\n42\n```",
+  "result": {
+   "error": {
+    "kind": "no_json"
+   },
+   "ok": false
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "A json fence holding {} is not reply-shaped; the fallback still takes it (empty reply).",
+  "id": "empty-object-fence",
+  "input": "```json\n{}\n```",
+  "result": {
+   "ok": false,
+   "error": {
+    "kind": "no_json"
+   }
+  },
+  "section": "6.2",
+  "anvilResult": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "divergesFromAnvil": true
+ },
+ {
+  "description": "An object whose only reply key is action is reply-shaped.",
+  "id": "shape-action-key-only",
+  "input": "```json\n{\"action\": {\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An object whose only reply key is steps is reply-shaped.",
+  "id": "shape-steps-key-only",
+  "input": "```json\n{\"steps\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An object whose only reply key is plan is reply-shaped.",
+  "id": "shape-plan-key-only",
+  "input": "```json\n{\"plan\": [\"Read the code\", \"Change it\"]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Read the code",
+     "Change it"
+    ],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An object whose only reply key is done is reply-shaped.",
+  "id": "shape-done-key-only",
+  "input": "```json\n{\"done\": true}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "An empty say with no actions and no done key. Spec 6.5 infers done only for a non-empty say.",
+  "id": "empty-say-no-prose-inferred-done",
+  "input": "```json\n{\"say\": \"\", \"actions\": []}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "done given as the string \"true\" (spec says boolean).",
+  "id": "done-string-true",
+  "input": "```json\n{\"say\": \"Finished.\", \"actions\": [], \"done\": \"true\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "say given as a number.",
+  "id": "say-number-becomes-string",
+  "input": "```json\n{\"say\": 42, \"actions\": []}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "42",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "say given as an object while message is a string: the say key wins and the value is lost.",
+  "id": "say-object-shadows-message",
+  "input": "```json\n{\"say\": {\"text\": \"Hi\"}, \"message\": \"Hello there.\", \"actions\": []}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "A tool name given as a number becomes the string \"5\".",
+  "id": "tool-name-number-becomes-string",
+  "input": "```json\n{\"say\": \"Calling.\", \"actions\": [{\"tool\": 5, \"args\": {}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {},
+      "tool": "5"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Calling.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Plan entries given as numbers.",
+  "id": "plan-numeric-entries-become-strings",
+  "input": "```json\n{\"say\": \"Plan.\", \"plan\": [1, 2]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "1",
+     "2"
+    ],
+    "say": "Plan.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "A pointer with status working (not done) and long prose after it: the pointer rule sets done to true.",
+  "id": "pointer-status-working-long-after",
+  "input": "```json\n{\"say\": \"See below.\", \"actions\": [], \"status\": \"working\"}\n```\n\nThe migration finished on staging, and the rollback script has been tested twice.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The migration finished on staging, and the rollback script has been tested twice.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "Text after the object, inside the fence: the first balanced object is taken.",
+  "id": "repair-text-after-object-fenced",
+  "input": "```json\n{\"say\": \"Found it.\", \"actions\": [], \"done\": true} and that is all\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Found it.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Text after an unfenced object that itself ends with braces.",
+  "id": "repair-text-after-object-unfenced",
+  "input": "{\"say\": \"Checking.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}]} Hope this helps {note}",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Checking.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "An extra closing brace after the reply object.",
+  "id": "repair-extra-closing-brace",
+  "input": "```json\n{\"say\": \"Finished.\", \"done\": true}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A ] closes an args object that should close with }.",
+  "id": "repair-mismatched-closer-in-args",
+  "input": "```json\n{\"say\": \"Searching.\", \"actions\": [{\"tool\": \"grep\", \"args\": {\"pattern\": \"TODO\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "TODO"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "The fence closes, but the action array and the root object are missing their closers.",
+  "id": "repair-missing-closers-at-end",
+  "input": "```json\n{\"say\": \"Searching.\", \"actions\": [{\"tool\": \"grep\", \"args\": {\"pattern\": \"TODO\"}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "TODO"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "The first action object is never closed before the second one starts.",
+  "id": "repair-two-actions-first-unclosed",
+  "input": "```json\n{\"say\": \"Two reads.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}, {\"tool\": \"read_file\", \"args\": {\"path\": \"b.txt\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "path": "b.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Two reads.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "The reply stops inside a content string; the string and containers are closed.",
+  "id": "repair-unterminated-string-at-end",
+  "input": "{\"say\": \"Writing the note.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"NOTE.md\", \"content\": \"hello wor",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "hello wor",
+       "path": "NOTE.md"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the note.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A Python True and None inside a file content string must not be rewritten (the outer object is valid).",
+  "id": "content-python-true-untouched",
+  "input": "```json\n{\"say\": \"Adding the debug guard.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"guard.py\", \"content\": \"DEBUG = True\\nif DEBUG == True:\\n    print(None)\\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "DEBUG = True\nif DEBUG == True:\n    print(None)\n",
+       "path": "guard.py"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Adding the debug guard.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A JS trailing comma inside a content string stays, while the outer object needs repair.",
+  "id": "content-trailing-comma-untouched",
+  "input": "```json\n{\"say\": \"Writing the config.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"cfg.js\", \"content\": \"const cfg = {a: 1, b: 2,};\\n\"}}],}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "const cfg = {a: 1, b: 2,};\n",
+       "path": "cfg.js"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the config.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "// comments and a URL with // inside a content string stay; the outer object needs a repair.",
+  "id": "content-comment-and-url-untouched",
+  "input": "```json\n{\"say\": \"Writing the notes.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"notes.js\", \"content\": \"// TODO: handle errors\\nconst url = \\\"https://example.com/docs\\\";\\n\"}}],}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "// TODO: handle errors\nconst url = \"https://example.com/docs\";\n",
+       "path": "notes.js"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the notes.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Curly quotes inside a straight-quoted content string stay; the outer object needs a repair.",
+  "id": "content-curly-quotes-untouched",
+  "input": "```json\n{\"say\": \"Writing the greeting.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"hi.txt\", \"content\": \"He said “hi” and it's fine.\\n\"}}],}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "He said “hi” and it's fine.\n",
+       "path": "hi.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the greeting.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Missing comma between two keys: not repairable, error invalid_json.",
+  "id": "error-invalid-missing-comma",
+  "input": "```json\n{\"say\": \"ok\" \"actions\": []}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "Badly formed object around line 1, column 13. Near: …{\"say\": \"ok\"⟦HERE⟧ \"actions\": []}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Missing colon after a key: error invalid_json.",
+  "id": "error-invalid-missing-colon",
+  "input": "```json\n{\"say\" \"ok\", \"actions\": []}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "No value for key in object around line 1, column 7. Near: …{\"say\"⟦HERE⟧ \"ok\", \"actions\": []}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A malformed number (1.2.3) is not repairable: error invalid_json.",
+  "id": "error-invalid-bad-number",
+  "input": "```json\n{\"say\": \"x\", \"milestone\": 1.2.3}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "Badly formed object around line 1, column 29. Near: …{\"say\": \"x\", \"milestone\": 1.⟦HERE⟧2.3}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A missing comma inside an args object: error invalid_json.",
+  "id": "error-invalid-missing-comma-in-args",
+  "input": "```json\n{\"say\": \"Running.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\" \"timeout\": 5}}]}\n```",
+  "result": {
+   "error": {
+    "kind": "invalid_json",
+    "message": "Badly formed object around line 1, column 75. Near: …{\"say\": \"Running.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"⟦HERE⟧ \"timeout\": 5}}]}…"
+   },
+   "ok": false
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Tool name under the key action.",
+  "id": "tool-key-action",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"action\": \"read_file\", \"args\": {\"path\": \"src/app.ts\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "src/app.ts"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool name under the key name.",
+  "id": "tool-key-name",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"name\": \"read_file\", \"args\": {\"path\": \"src/app.ts\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "src/app.ts"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool name under the key type.",
+  "id": "tool-key-type",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"type\": \"read_file\", \"args\": {\"path\": \"src/app.ts\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "src/app.ts"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool name under the key function.",
+  "id": "tool-key-function",
+  "input": "```json\n{\"say\": \"Running.\", \"actions\": [{\"function\": \"shell\", \"args\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Running.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool name under the key cmd.",
+  "id": "tool-key-cmd",
+  "input": "```json\n{\"say\": \"Running.\", \"actions\": [{\"cmd\": \"shell\", \"args\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Running.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool name under the key command_name.",
+  "id": "tool-key-command-name",
+  "input": "```json\n{\"say\": \"Running.\", \"actions\": [{\"command_name\": \"shell\", \"args\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Running.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments under the key arguments.",
+  "id": "args-key-arguments",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"arguments\": {\"path\": \"a.txt\", \"start\": 1, \"end\": 20}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "end": 20,
+       "path": "a.txt",
+       "start": 1
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments under the key params.",
+  "id": "args-key-params",
+  "input": "```json\n{\"say\": \"Searching.\", \"actions\": [{\"tool\": \"grep\", \"params\": {\"pattern\": \"TODO\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "TODO"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments under the key parameters.",
+  "id": "args-key-parameters",
+  "input": "```json\n{\"say\": \"Searching.\", \"actions\": [{\"tool\": \"grep\", \"parameters\": {\"pattern\": \"FIXME\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "FIXME"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments under the key input.",
+  "id": "args-key-input",
+  "input": "```json\n{\"say\": \"Listing.\", \"actions\": [{\"tool\": \"list_dir\", \"input\": {\"path\": \"src\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "src"
+      },
+      "tool": "list_dir"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments under the key inputs.",
+  "id": "args-key-inputs",
+  "input": "```json\n{\"say\": \"Listing.\", \"actions\": [{\"tool\": \"list_dir\", \"inputs\": {\"path\": \"docs\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "docs"
+      },
+      "tool": "list_dir"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments given as a string that holds a JSON object: the string is parsed.",
+  "id": "args-json-string-parsed",
+  "input": "```json\n{\"say\": \"Reading a range.\", \"actions\": [{\"tool\": \"read_file\", \"arguments\": \"{\\\"path\\\": \\\"src/app.ts\\\", \\\"start\\\": 1, \\\"end\\\": 20}\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "end": 20,
+       "path": "src/app.ts",
+       "start": 1
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading a range.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "No argument key: the other keys are the arguments, and meta keys are removed.",
+  "id": "args-flat-meta-keys-stripped",
+  "input": "```json\n{\"say\": \"Listing.\", \"actions\": [{\"tool\": \"shell\", \"command\": \"ls -la\", \"timeout\": 30, \"thought\": \"need the files\", \"reasoning\": \"x\", \"risk\": \"low\", \"why\": \"see the tree\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls -la",
+       "timeout": 30
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Non-object arguments (a number) become {\"value\": 42}.",
+  "id": "args-non-object-number",
+  "input": "```json\n{\"say\": \"Setting the limit.\", \"actions\": [{\"tool\": \"shell\", \"args\": 42}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "value": 42
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Setting the limit.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Non-object arguments (an array) become {\"value\": [...]}.",
+  "id": "args-non-object-array",
+  "input": "```json\n{\"say\": \"Reading both.\", \"actions\": [{\"tool\": \"read_file\", \"args\": [\"a.txt\", \"b.txt\"]}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "value": [
+        "a.txt",
+        "b.txt"
+       ]
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading both.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Non-object arguments (a plain string) become {\"value\": \"...\"}.",
+  "id": "args-non-object-string",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"read_file\", \"args\": \"src/main.swift\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "value": "src/main.swift"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Arguments that are null become {\"value\": null}.",
+  "id": "args-null-becomes-value-null",
+  "input": "```json\n{\"say\": \"Listing.\", \"actions\": [{\"tool\": \"list_dir\", \"args\": null}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "value": null
+      },
+      "tool": "list_dir"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Listing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Action list under the key steps.",
+  "id": "action-list-steps-key",
+  "input": "```json\n{\"say\": \"Two steps.\", \"steps\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a\"}}, {\"tool\": \"shell\", \"args\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Two steps.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Action list under the key tool_calls.",
+  "id": "action-list-tool-calls-key",
+  "input": "```json\n{\"say\": \"Two steps.\", \"tool_calls\": [{\"name\": \"read_file\", \"arguments\": {\"path\": \"a\"}}, {\"name\": \"shell\", \"arguments\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Two steps.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "A single action under the key action (not a list) is a list of one.",
+  "id": "single-action-object",
+  "input": "```json\n{\"say\": \"Looking.\", \"action\": {\"tool\": \"shell\", \"args\": {\"command\": \"pwd\"}}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "pwd"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Looking.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "A single action object under the key tool is a list of one.",
+  "id": "single-tool-object",
+  "input": "```json\n{\"say\": \"Looking.\", \"tool\": {\"name\": \"shell\", \"args\": {\"command\": \"pwd\"}}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "pwd"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Looking.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "The whole reply is one action object with no say.",
+  "id": "top-level-single-action",
+  "input": "```json\n{\"tool\": \"shell\", \"args\": {\"command\": \"pwd\"}}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "pwd"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "The whole reply is a top-level array of actions.",
+  "id": "top-level-array-of-actions",
+  "input": "```json\n[{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}, {\"tool\": \"read_file\", \"args\": {\"path\": \"b.txt\"}}]\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "path": "b.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "say given as message.",
+  "id": "say-key-message",
+  "input": "```json\n{\"message\": \"Found it.\", \"actions\": []}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Found it.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "say given as reply, next to actions.",
+  "id": "say-key-reply",
+  "input": "```json\n{\"reply\": \"Reading the file now.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"a.txt\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a.txt"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading the file now.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "say given as response, next to actions.",
+  "id": "say-key-response",
+  "input": "```json\n{\"response\": \"Searching the repo.\", \"actions\": [{\"tool\": \"grep\", \"args\": {\"pattern\": \"TODO\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "TODO"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching the repo.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "done true with actions present: the actions are kept (the spec says a done reply SHOULD have none).",
+  "id": "done-true-with-actions-kept",
+  "input": "```json\n{\"say\": \"All set.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"make test\"}}], \"done\": true}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make test"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "All set.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "status \"done\" means done.",
+  "id": "status-done-string",
+  "input": "```json\n{\"say\": \"Finished.\", \"status\": \"done\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "status \"complete\" means done.",
+  "id": "status-complete-string",
+  "input": "```json\n{\"say\": \"Finished.\", \"status\": \"complete\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "status \"finished\" means done.",
+  "id": "status-finished-string",
+  "input": "```json\n{\"say\": \"Finished.\", \"status\": \"finished\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "status with another value is not done, but it is still an explicit status.",
+  "id": "status-working-not-done",
+  "input": "```json\n{\"say\": \"Still working.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"make\"}}], \"status\": \"working\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Still working.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "Tool names with case, dashes and spaces are normalized.",
+  "id": "tool-name-case-dash-space",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"  Read File \", \"args\": {\"path\": \"a\"}}, {\"tool\": \"Edit-File\", \"args\": {\"path\": \"a\", \"find\": \"x\", \"replace\": \"y\"}}, {\"tool\": \"list dir\", \"args\": {\"path\": \".\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "find": "x",
+       "path": "a",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     },
+     {
+      "args": {
+       "path": "."
+      },
+      "tool": "list_dir"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "bash, run_command and sh are aliases for shell.",
+  "id": "alias-shell-family",
+  "input": "```json\n{\"say\": \"Running.\", \"actions\": [{\"tool\": \"bash\", \"args\": {\"command\": \"ls\"}}, {\"tool\": \"run_command\", \"args\": {\"command\": \"pwd\"}}, {\"tool\": \"sh\", \"args\": {\"command\": \"whoami\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     },
+     {
+      "args": {
+       "command": "pwd"
+      },
+      "tool": "shell"
+     },
+     {
+      "args": {
+       "command": "whoami"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Running.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "cat, view and open_file are aliases for read_file.",
+  "id": "alias-read-family",
+  "input": "```json\n{\"say\": \"Reading.\", \"actions\": [{\"tool\": \"cat\", \"args\": {\"path\": \"a\"}}, {\"tool\": \"view\", \"args\": {\"path\": \"b\"}}, {\"tool\": \"open_file\", \"args\": {\"path\": \"c\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "a"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "path": "b"
+      },
+      "tool": "read_file"
+     },
+     {
+      "args": {
+       "path": "c"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Reading.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "write, create_file and save_file are aliases for write_file.",
+  "id": "alias-write-family",
+  "input": "```json\n{\"say\": \"Writing.\", \"actions\": [{\"tool\": \"write\", \"args\": {\"path\": \"a\", \"content\": \"1\"}}, {\"tool\": \"create_file\", \"args\": {\"path\": \"b\", \"content\": \"2\"}}, {\"tool\": \"save_file\", \"args\": {\"path\": \"c\", \"content\": \"3\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "1",
+       "path": "a"
+      },
+      "tool": "write_file"
+     },
+     {
+      "args": {
+       "content": "2",
+       "path": "b"
+      },
+      "tool": "write_file"
+     },
+     {
+      "args": {
+       "content": "3",
+       "path": "c"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "str_replace, replace_in_file and str_replace_editor are aliases for edit_file.",
+  "id": "alias-edit-family",
+  "input": "```json\n{\"say\": \"Editing.\", \"actions\": [{\"tool\": \"str_replace\", \"args\": {\"path\": \"a\", \"find\": \"x\", \"replace\": \"y\"}}, {\"tool\": \"replace_in_file\", \"args\": {\"path\": \"b\", \"find\": \"x\", \"replace\": \"y\"}}, {\"tool\": \"str_replace_editor\", \"args\": {\"path\": \"c\", \"find\": \"x\", \"replace\": \"y\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "x",
+       "path": "a",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     },
+     {
+      "args": {
+       "find": "x",
+       "path": "b",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     },
+     {
+      "args": {
+       "find": "x",
+       "path": "c",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Editing.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "rg and search_code map to grep; find_files and find map to glob; search_files maps to grep.",
+  "id": "alias-search-family",
+  "input": "```json\n{\"say\": \"Searching.\", \"actions\": [{\"tool\": \"rg\", \"args\": {\"pattern\": \"TODO\"}}, {\"tool\": \"search_code\", \"args\": {\"pattern\": \"FIXME\"}}, {\"tool\": \"find_files\", \"args\": {\"pattern\": \"*.swift\"}}, {\"tool\": \"find\", \"args\": {\"pattern\": \"*.md\"}}, {\"tool\": \"search_files\", \"args\": {\"pattern\": \"main\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "TODO"
+      },
+      "tool": "grep"
+     },
+     {
+      "args": {
+       "pattern": "FIXME"
+      },
+      "tool": "grep"
+     },
+     {
+      "args": {
+       "pattern": "*.swift"
+      },
+      "tool": "glob"
+     },
+     {
+      "args": {
+       "pattern": "*.md"
+      },
+      "tool": "glob"
+     },
+     {
+      "args": {
+       "pattern": "main"
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "multiedit, ls, fetch, todowrite, rm and curl map to their canonical tools.",
+  "id": "alias-misc-family",
+  "input": "```json\n{\"say\": \"Working.\", \"actions\": [{\"tool\": \"multiedit\", \"args\": {\"path\": \"a\", \"edits\": []}}, {\"tool\": \"ls\", \"args\": {\"path\": \".\"}}, {\"tool\": \"fetch\", \"args\": {\"url\": \"https://example.com\"}}, {\"tool\": \"todowrite\", \"args\": {\"todos\": []}}, {\"tool\": \"rm\", \"args\": {\"path\": \"old.txt\"}}, {\"tool\": \"curl\", \"args\": {\"url\": \"https://example.com/a\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "edits": [],
+       "path": "a"
+      },
+      "tool": "multi_edit"
+     },
+     {
+      "args": {
+       "path": "."
+      },
+      "tool": "list_dir"
+     },
+     {
+      "args": {
+       "url": "https://example.com"
+      },
+      "tool": "fetch_url"
+     },
+     {
+      "args": {
+       "todos": []
+      },
+      "tool": "todo_write"
+     },
+     {
+      "args": {
+       "path": "old.txt"
+      },
+      "tool": "delete_file"
+     },
+     {
+      "args": {
+       "url": "https://example.com/a"
+      },
+      "tool": "fetch_url"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Working.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "A name that is not in the alias table is lowercased and kept.",
+  "id": "alias-unknown-name-kept",
+  "input": "```json\n{\"say\": \"Calling.\", \"actions\": [{\"tool\": \"Frobnicate Widget\", \"args\": {\"id\": 7}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "id": 7
+      },
+      "tool": "frobnicate_widget"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Calling.",
+    "thought": ""
+   }
+  },
+  "section": "6.4"
+ },
+ {
+  "description": "A done action after an edit: the edit stays, the done message is the answer, and the action after done is dropped.",
+  "id": "done-action-with-actions-before-and-after",
+  "input": "```json\n{\"say\": \"Fixing it.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"a.py\", \"find\": \"x\", \"replace\": \"y\"}}, {\"tool\": \"done\", \"args\": {\"message\": \"Fixed the off-by-one in a.py.\"}}, {\"tool\": \"shell\", \"args\": {\"command\": \"pytest\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "x",
+       "path": "a.py",
+       "replace": "y"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Fixed the off-by-one in a.py.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "A finish action with a text argument.",
+  "id": "finish-action-text-arg",
+  "input": "```json\n{\"say\": \"Working.\", \"actions\": [{\"tool\": \"finish\", \"args\": {\"text\": \"The config now uses port 8080.\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The config now uses port 8080.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "A final_answer action with a result argument and no say.",
+  "id": "final-answer-result-arg",
+  "input": "```json\n{\"actions\": [{\"tool\": \"final_answer\", \"args\": {\"result\": \"There are 3 TODOs.\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "There are 3 TODOs.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "An answer action with a say argument.",
+  "id": "answer-action-say-arg",
+  "input": "```json\n{\"actions\": [{\"tool\": \"answer\", \"args\": {\"say\": \"It is 42.\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "It is 42.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "attempt_completion under the key name, with arguments under the key arguments.",
+  "id": "attempt-completion-message-arg",
+  "input": "```json\n{\"say\": \"Wrapping up.\", \"actions\": [{\"name\": \"attempt_completion\", \"arguments\": {\"message\": \"Refactor complete.\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Refactor complete.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "A complete action with no message argument keeps the reply's say as the answer.",
+  "id": "complete-no-message-keeps-say",
+  "input": "```json\n{\"say\": \"Everything is in place.\", \"actions\": [{\"tool\": \"complete\", \"args\": {}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Everything is in place.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "A done action as the only action: the actions list is empty and the message is the answer.",
+  "id": "done-action-first-no-prior-actions",
+  "input": "```json\n{\"actions\": [{\"tool\": \"done\", \"args\": {\"message\": \"Nothing to change.\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Nothing to change.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "A done action with an empty message does not replace say.",
+  "id": "done-action-empty-message-keeps-say",
+  "input": "```json\n{\"say\": \"Finished.\", \"actions\": [{\"tool\": \"done\", \"args\": {\"message\": \"\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Finished.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "Say only, no actions, no done key and no plan: done is inferred (explicitDone false).",
+  "id": "inferred-done-say-only",
+  "input": "```json\n{\"say\": \"The function returns 3.\"}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The function returns 3.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "Say only with an explicit done false: the reply is not done.",
+  "id": "explicit-done-false-say-only",
+  "input": "```json\n{\"say\": \"Which file should I edit?\", \"actions\": [], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Which file should I edit?",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "Say and plan with no actions: done is not inferred, because a plan is present.",
+  "id": "plan-with-say-only-not-done",
+  "input": "```json\n{\"say\": \"Here is the plan for the migration.\", \"plan\": [\"Add the new table\", \"Backfill the rows\", \"Drop the old column\"]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Add the new table",
+     "Backfill the rows",
+     "Drop the old column"
+    ],
+    "say": "Here is the plan for the migration.",
+    "thought": ""
+   }
+  },
+  "section": "6.5"
+ },
+ {
+  "description": "say is \"Answered below.\" and more than 40 characters follow the block: the prose replaces say.",
+  "id": "pointer-answered-below-long-after",
+  "input": "Let me think about that.\n```json\n{\"say\": \"Answered below.\", \"actions\": []}\n```\n\nThe Eiffel Tower is in Paris, France, and it was completed in 1889 for the World's Fair.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The Eiffel Tower is in Paris, France, and it was completed in 1889 for the World's Fair.",
+    "thought": "Let me think about that."
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "say is \"See below.\" but only 4 characters follow: say stays.",
+  "id": "pointer-see-below-short-after-kept",
+  "input": "```json\n{\"say\": \"See below.\", \"actions\": []}\n```\n\nYes.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "See below.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "say ends with \"as follows:\" and a numbered list follows the block.",
+  "id": "pointer-as-follows-colon-long-after",
+  "input": "```json\n{\"say\": \"As follows:\", \"actions\": []}\n```\n\n1. Add the index. 2. Run the migration. 3. Restart the service and check the logs.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "1. Add the index. 2. Run the migration. 3. Restart the service and check the logs.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "An empty say followed by long prose: the prose is the answer.",
+  "id": "pointer-empty-say-long-after",
+  "input": "```json\n{\"say\": \"\", \"actions\": []}\n```\n\nThe build uses Node 20, and the lockfile pins every transitive dependency to a fixed version.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The build uses Node 20, and the lockfile pins every transitive dependency to a fixed version.",
+    "thought": ""
+   }
+  },
+  "section": "6.6"
+ },
+ {
+  "description": "A pointer with explicit done false and long prose after: the prose replaces say but done stays false.",
+  "id": "pointer-explicit-done-false-long-after",
+  "input": "```json\n{\"say\": \"Answered below.\", \"actions\": [], \"done\": false}\n```\n\nThe cache is cleared on every deploy, so stale entries never survive a release.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The cache is cleared on every deploy, so stale entries never survive a release.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "A pointer with actions present: the prose after the block is not used as the answer.",
+  "id": "pointer-with-actions-ignores-after",
+  "input": "```json\n{\"say\": \"See below.\", \"actions\": [{\"tool\": \"read_file\", \"args\": {\"path\": \"README.md\"}}]}\n```\n\nThe README describes the install steps in detail for every platform.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "path": "README.md"
+      },
+      "tool": "read_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "See below.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "A real say with long prose after it: say is kept.",
+  "id": "say-not-pointer-keeps-say",
+  "input": "```json\n{\"say\": \"The build passes on all platforms.\", \"actions\": []}\n```\n\nI also checked the lint output, and it is clean apart from two unused imports.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The build passes on all platforms.",
+    "thought": ""
+   }
+  },
+  "section": "6.6"
+ },
+ {
+  "description": "A say longer than 40 characters that starts with a pointer phrase is not a pointer.",
+  "id": "say-over-40-chars-not-pointer",
+  "input": "```json\n{\"say\": \"See below for the complete list of every file that changed in this commit.\", \"actions\": []}\n```\n\nThe commit touches the parser, the tests and the README, in that order.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "See below for the complete list of every file that changed in this commit.",
+    "thought": ""
+   }
+  },
+  "section": "6.6"
+ },
+ {
+  "description": "plan as an array of strings.",
+  "id": "plan-strings",
+  "input": "```json\n{\"say\": \"Here is my plan.\", \"plan\": [\"Read the parser\", \"Write the tests\", \"Fix the failures\"]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Read the parser",
+     "Write the tests",
+     "Fix the failures"
+    ],
+    "say": "Here is my plan.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "plan as objects with a title key; the extra key is ignored.",
+  "id": "plan-objects-title",
+  "input": "```json\n{\"plan\": [{\"title\": \"Survey the code\", \"detail\": \"read the parser\"}, {\"title\": \"Add tests\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Survey the code",
+     "Add tests"
+    ],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "plan as objects with a step key.",
+  "id": "plan-objects-step",
+  "input": "```json\n{\"say\": \"Plan.\", \"plan\": [{\"step\": \"Reproduce the bug\"}, {\"step\": \"Patch and verify\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Reproduce the bug",
+     "Patch and verify"
+    ],
+    "say": "Plan.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "The list is under the key milestones and is read as the plan.",
+  "id": "milestones-key-alias",
+  "input": "```json\n{\"say\": \"Plan.\", \"milestones\": [\"Schema\", \"API\", \"UI\"]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Schema",
+     "API",
+     "UI"
+    ],
+    "say": "Plan.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "milestone as an integer, on a reply that finishes milestone 1.",
+  "id": "milestone-integer",
+  "input": "```json\n{\"say\": \"Schema is done.\", \"milestone\": 1, \"actions\": []}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": 1,
+    "plan": [],
+    "say": "Schema is done.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "milestone given as the string \"2\".",
+  "id": "milestone-string-number",
+  "input": "```json\n{\"say\": \"API done.\", \"milestone\": \"2\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"make\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "make"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": 2,
+    "plan": [],
+    "say": "API done.",
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "Blank plan entries are dropped and the rest are trimmed.",
+  "id": "plan-blank-entries-trimmed",
+  "input": "```json\n{\"plan\": [\"  Read the code  \", \"\", \"   \", {\"title\": \"\"}, {\"step\": \"Ship\"}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [
+     "Read the code",
+     "Ship"
+    ],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.8"
+ },
+ {
+  "description": "Emoji in say and in an edit: they pass through unchanged.",
+  "id": "unicode-emoji-say-and-args",
+  "input": "```json\n{\"say\": \"Adding the rocket 🚀 to the banner 🎉.\", \"actions\": [{\"tool\": \"edit_file\", \"args\": {\"path\": \"banner.html\", \"find\": \"Launch\", \"replace\": \"Launch 🚀\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "find": "Launch",
+       "path": "banner.html",
+       "replace": "Launch 🚀"
+      },
+      "tool": "edit_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Adding the rocket 🚀 to the banner 🎉.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "CJK text in a file content string.",
+  "id": "unicode-cjk-content",
+  "input": "```json\n{\"say\": \"Writing a greeting file.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"greeting.txt\", \"content\": \"你好，世界\\n日本語のテキスト\\n한국어\\n\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "你好，世界\n日本語のテキスト\n한국어\n",
+       "path": "greeting.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing a greeting file.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "JSON \\u escapes for a non-ASCII letter and a symbol are decoded.",
+  "id": "unicode-escaped-sequences",
+  "input": "```json\n{\"say\": \"Caf\\u00e9 check.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"menu.txt\", \"content\": \"Caf\\u00e9 \\u2603\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "Café ☃",
+       "path": "menu.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Café check.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A surrogate pair escape (an emoji written as \\ud83d\\ude00) is decoded.",
+  "id": "unicode-surrogate-pair-escape",
+  "input": "```json\n{\"say\": \"Smile.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"smile.txt\", \"content\": \"\\ud83d\\ude00\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "😀",
+       "path": "smile.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Smile.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "A write_file content of about 7000 characters: it passes through whole.",
+  "id": "large-content-string",
+  "input": "```json\n{\"say\": \"Writing the report.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"report.txt\", \"content\": \"Line 0000 of the generated report, with some padding text.\\nLine 0001 of the generated report, with some padding text.\\nLine 0002 of the generated report, with some padding text.\\nLine 0003 of the generated report, with some padding text.\\nLine 0004 of the generated report, with some padding text.\\nLine 0005 of the generated report, with some padding text.\\nLine 0006 of the generated report, with some padding text.\\nLine 0007 of the generated report, with some padding text.\\nLine 0008 of the generated report, with some padding text.\\nLine 0009 of the generated report, with some padding text.\\nLine 0010 of the generated report, with some padding text.\\nLine 0011 of the generated report, with some padding text.\\nLine 0012 of the generated report, with some padding text.\\nLine 0013 of the generated report, with some padding text.\\nLine 0014 of the generated report, with some padding text.\\nLine 0015 of the generated report, with some padding text.\\nLine 0016 of the generated report, with some padding text.\\nLine 0017 of the generated report, with some padding text.\\nLine 0018 of the generated report, with some padding text.\\nLine 0019 of the generated report, with some padding text.\\nLine 0020 of the generated report, with some padding text.\\nLine 0021 of the generated report, with some padding text.\\nLine 0022 of the generated report, with some padding text.\\nLine 0023 of the generated report, with some padding text.\\nLine 0024 of the generated report, with some padding text.\\nLine 0025 of the generated report, with some padding text.\\nLine 0026 of the generated report, with some padding text.\\nLine 0027 of the generated report, with some padding text.\\nLine 0028 of the generated report, with some padding text.\\nLine 0029 of the generated report, with some padding text.\\nLine 0030 of the generated report, with some padding text.\\nLine 0031 of the generated report, with some padding text.\\nLine 0032 of the generated report, with some padding text.\\nLine 0033 of the generated report, with some padding text.\\nLine 0034 of the generated report, with some padding text.\\nLine 0035 of the generated report, with some padding text.\\nLine 0036 of the generated report, with some padding text.\\nLine 0037 of the generated report, with some padding text.\\nLine 0038 of the generated report, with some padding text.\\nLine 0039 of the generated report, with some padding text.\\nLine 0040 of the generated report, with some padding text.\\nLine 0041 of the generated report, with some padding text.\\nLine 0042 of the generated report, with some padding text.\\nLine 0043 of the generated report, with some padding text.\\nLine 0044 of the generated report, with some padding text.\\nLine 0045 of the generated report, with some padding text.\\nLine 0046 of the generated report, with some padding text.\\nLine 0047 of the generated report, with some padding text.\\nLine 0048 of the generated report, with some padding text.\\nLine 0049 of the generated report, with some padding text.\\nLine 0050 of the generated report, with some padding text.\\nLine 0051 of the generated report, with some padding text.\\nLine 0052 of the generated report, with some padding text.\\nLine 0053 of the generated report, with some padding text.\\nLine 0054 of the generated report, with some padding text.\\nLine 0055 of the generated report, with some padding text.\\nLine 0056 of the generated report, with some padding text.\\nLine 0057 of the generated report, with some padding text.\\nLine 0058 of the generated report, with some padding text.\\nLine 0059 of the generated report, with some padding text.\\nLine 0060 of the generated report, with some padding text.\\nLine 0061 of the generated report, with some padding text.\\nLine 0062 of the generated report, with some padding text.\\nLine 0063 of the generated report, with some padding text.\\nLine 0064 of the generated report, with some padding text.\\nLine 0065 of the generated report, with some padding text.\\nLine 0066 of the generated report, with some padding text.\\nLine 0067 of the generated report, with some padding text.\\nLine 0068 of the generated report, with some padding text.\\nLine 0069 of the generated report, with some padding text.\\nLine 0070 of the generated report, with some padding text.\\nLine 0071 of the generated report, with some padding text.\\nLine 0072 of the generated report, with some padding text.\\nLine 0073 of the generated report, with some padding text.\\nLine 0074 of the generated report, with some padding text.\\nLine 0075 of the generated report, with some padding text.\\nLine 0076 of the generated report, with some padding text.\\nLine 0077 of the generated report, with some padding text.\\nLine 0078 of the generated report, with some padding text.\\nLine 0079 of the generated report, with some padding text.\\nLine 0080 of the generated report, with some padding text.\\nLine 0081 of the generated report, with some padding text.\\nLine 0082 of the generated report, with some padding text.\\nLine 0083 of the generated report, with some padding text.\\nLine 0084 of the generated report, with some padding text.\\nLine 0085 of the generated report, with some padding text.\\nLine 0086 of the generated report, with some padding text.\\nLine 0087 of the generated report, with some padding text.\\nLine 0088 of the generated report, with some padding text.\\nLine 0089 of the generated report, with some padding text.\\nLine 0090 of the generated report, with some padding text.\\nLine 0091 of the generated report, with some padding text.\\nLine 0092 of the generated report, with some padding text.\\nLine 0093 of the generated report, with some padding text.\\nLine 0094 of the generated report, with some padding text.\\nLine 0095 of the generated report, with some padding text.\\nLine 0096 of the generated report, with some padding text.\\nLine 0097 of the generated report, with some padding text.\\nLine 0098 of the generated report, with some padding text.\\nLine 0099 of the generated report, with some padding text.\\nLine 0100 of the generated report, with some padding text.\\nLine 0101 of the generated report, with some padding text.\\nLine 0102 of the generated report, with some padding text.\\nLine 0103 of the generated report, with some padding text.\\nLine 0104 of the generated report, with some padding text.\\nLine 0105 of the generated report, with some padding text.\\nLine 0106 of the generated report, with some padding text.\\nLine 0107 of the generated report, with some padding text.\\nLine 0108 of the generated report, with some padding text.\\nLine 0109 of the generated report, with some padding text.\\nLine 0110 of the generated report, with some padding text.\\nLine 0111 of the generated report, with some padding text.\\nLine 0112 of the generated report, with some padding text.\\nLine 0113 of the generated report, with some padding text.\\nLine 0114 of the generated report, with some padding text.\\nLine 0115 of the generated report, with some padding text.\\nLine 0116 of the generated report, with some padding text.\\nLine 0117 of the generated report, with some padding text.\\nLine 0118 of the generated report, with some padding text.\\nLine 0119 of the generated report, with some padding text.\\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "Line 0000 of the generated report, with some padding text.\nLine 0001 of the generated report, with some padding text.\nLine 0002 of the generated report, with some padding text.\nLine 0003 of the generated report, with some padding text.\nLine 0004 of the generated report, with some padding text.\nLine 0005 of the generated report, with some padding text.\nLine 0006 of the generated report, with some padding text.\nLine 0007 of the generated report, with some padding text.\nLine 0008 of the generated report, with some padding text.\nLine 0009 of the generated report, with some padding text.\nLine 0010 of the generated report, with some padding text.\nLine 0011 of the generated report, with some padding text.\nLine 0012 of the generated report, with some padding text.\nLine 0013 of the generated report, with some padding text.\nLine 0014 of the generated report, with some padding text.\nLine 0015 of the generated report, with some padding text.\nLine 0016 of the generated report, with some padding text.\nLine 0017 of the generated report, with some padding text.\nLine 0018 of the generated report, with some padding text.\nLine 0019 of the generated report, with some padding text.\nLine 0020 of the generated report, with some padding text.\nLine 0021 of the generated report, with some padding text.\nLine 0022 of the generated report, with some padding text.\nLine 0023 of the generated report, with some padding text.\nLine 0024 of the generated report, with some padding text.\nLine 0025 of the generated report, with some padding text.\nLine 0026 of the generated report, with some padding text.\nLine 0027 of the generated report, with some padding text.\nLine 0028 of the generated report, with some padding text.\nLine 0029 of the generated report, with some padding text.\nLine 0030 of the generated report, with some padding text.\nLine 0031 of the generated report, with some padding text.\nLine 0032 of the generated report, with some padding text.\nLine 0033 of the generated report, with some padding text.\nLine 0034 of the generated report, with some padding text.\nLine 0035 of the generated report, with some padding text.\nLine 0036 of the generated report, with some padding text.\nLine 0037 of the generated report, with some padding text.\nLine 0038 of the generated report, with some padding text.\nLine 0039 of the generated report, with some padding text.\nLine 0040 of the generated report, with some padding text.\nLine 0041 of the generated report, with some padding text.\nLine 0042 of the generated report, with some padding text.\nLine 0043 of the generated report, with some padding text.\nLine 0044 of the generated report, with some padding text.\nLine 0045 of the generated report, with some padding text.\nLine 0046 of the generated report, with some padding text.\nLine 0047 of the generated report, with some padding text.\nLine 0048 of the generated report, with some padding text.\nLine 0049 of the generated report, with some padding text.\nLine 0050 of the generated report, with some padding text.\nLine 0051 of the generated report, with some padding text.\nLine 0052 of the generated report, with some padding text.\nLine 0053 of the generated report, with some padding text.\nLine 0054 of the generated report, with some padding text.\nLine 0055 of the generated report, with some padding text.\nLine 0056 of the generated report, with some padding text.\nLine 0057 of the generated report, with some padding text.\nLine 0058 of the generated report, with some padding text.\nLine 0059 of the generated report, with some padding text.\nLine 0060 of the generated report, with some padding text.\nLine 0061 of the generated report, with some padding text.\nLine 0062 of the generated report, with some padding text.\nLine 0063 of the generated report, with some padding text.\nLine 0064 of the generated report, with some padding text.\nLine 0065 of the generated report, with some padding text.\nLine 0066 of the generated report, with some padding text.\nLine 0067 of the generated report, with some padding text.\nLine 0068 of the generated report, with some padding text.\nLine 0069 of the generated report, with some padding text.\nLine 0070 of the generated report, with some padding text.\nLine 0071 of the generated report, with some padding text.\nLine 0072 of the generated report, with some padding text.\nLine 0073 of the generated report, with some padding text.\nLine 0074 of the generated report, with some padding text.\nLine 0075 of the generated report, with some padding text.\nLine 0076 of the generated report, with some padding text.\nLine 0077 of the generated report, with some padding text.\nLine 0078 of the generated report, with some padding text.\nLine 0079 of the generated report, with some padding text.\nLine 0080 of the generated report, with some padding text.\nLine 0081 of the generated report, with some padding text.\nLine 0082 of the generated report, with some padding text.\nLine 0083 of the generated report, with some padding text.\nLine 0084 of the generated report, with some padding text.\nLine 0085 of the generated report, with some padding text.\nLine 0086 of the generated report, with some padding text.\nLine 0087 of the generated report, with some padding text.\nLine 0088 of the generated report, with some padding text.\nLine 0089 of the generated report, with some padding text.\nLine 0090 of the generated report, with some padding text.\nLine 0091 of the generated report, with some padding text.\nLine 0092 of the generated report, with some padding text.\nLine 0093 of the generated report, with some padding text.\nLine 0094 of the generated report, with some padding text.\nLine 0095 of the generated report, with some padding text.\nLine 0096 of the generated report, with some padding text.\nLine 0097 of the generated report, with some padding text.\nLine 0098 of the generated report, with some padding text.\nLine 0099 of the generated report, with some padding text.\nLine 0100 of the generated report, with some padding text.\nLine 0101 of the generated report, with some padding text.\nLine 0102 of the generated report, with some padding text.\nLine 0103 of the generated report, with some padding text.\nLine 0104 of the generated report, with some padding text.\nLine 0105 of the generated report, with some padding text.\nLine 0106 of the generated report, with some padding text.\nLine 0107 of the generated report, with some padding text.\nLine 0108 of the generated report, with some padding text.\nLine 0109 of the generated report, with some padding text.\nLine 0110 of the generated report, with some padding text.\nLine 0111 of the generated report, with some padding text.\nLine 0112 of the generated report, with some padding text.\nLine 0113 of the generated report, with some padding text.\nLine 0114 of the generated report, with some padding text.\nLine 0115 of the generated report, with some padding text.\nLine 0116 of the generated report, with some padding text.\nLine 0117 of the generated report, with some padding text.\nLine 0118 of the generated report, with some padding text.\nLine 0119 of the generated report, with some padding text.\n",
+       "path": "report.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the report.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Backslashes, escaped quotes and a Windows path inside a content string.",
+  "id": "backslashes-and-quotes-in-content",
+  "input": "```json\n{\"say\": \"Writing the path note.\", \"actions\": [{\"tool\": \"write_file\", \"args\": {\"path\": \"notes\\\\win.txt\", \"content\": \"He typed \\\"C:\\\\Users\\\\me\\\" and then the pattern \\\\d+ matched.\\n\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "content": "He typed \"C:\\Users\\me\" and then the pattern \\d+ matched.\n",
+       "path": "notes\\win.txt"
+      },
+      "tool": "write_file"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Writing the path note.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "Regex escapes in a grep pattern argument are kept exactly.",
+  "id": "regex-backslashes-in-args",
+  "input": "```json\n{\"say\": \"Searching for versions.\", \"actions\": [{\"tool\": \"grep\", \"args\": {\"pattern\": \"\\\\d+\\\\.\\\\w+\\\\s*=\\\\s*\\\"[^\\\"]*\\\"\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "pattern": "\\d+\\.\\w+\\s*=\\s*\"[^\"]*\""
+      },
+      "tool": "grep"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Searching for versions.",
+    "thought": ""
+   }
+  },
+  "section": "6.3"
+ },
+ {
+  "description": "The first fence is missing a closing bracket and needs structural repair; the second fence is valid JSON and wins because step 1 only accepts strictly valid bodies.",
+  "id": "fence-repairable-first-loses-to-valid-second",
+  "input": "```json\n{\"say\": \"First try.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}\n```\n```json\n{\"say\": \"Second try.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"pwd\"}}], \"done\": false}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "pwd"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": true,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Second try.",
+    "thought": "```json\n{\"say\": \"First try.\", \"actions\": [{\"tool\": \"shell\", \"args\": {\"command\": \"ls\"}}\n```"
+   }
+  },
+  "section": "6.1"
+ },
+ {
+  "description": "An object whose only reply key is tool_calls is reply-shaped.",
+  "id": "shape-tool-calls-key-only",
+  "input": "```json\n{\"tool_calls\": [{\"name\": \"shell\", \"arguments\": {\"command\": \"ls\"}}]}\n```",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [
+     {
+      "args": {
+       "command": "ls"
+      },
+      "tool": "shell"
+     }
+    ],
+    "done": false,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": null,
+    "thought": ""
+   }
+  },
+  "section": "6.2"
+ },
+ {
+  "description": "A say that starts with the pointer word below (under 40 characters) counts as a pointer.",
+  "id": "pointer-below-prefix-long-after",
+  "input": "```json\n{\"say\": \"Below is the fix I applied.\", \"actions\": []}\n```\n\nThe off-by-one was in the loop bound, which now stops at the last index.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The off-by-one was in the loop bound, which now stops at the last index.",
+    "thought": ""
+   }
+  },
+  "section": "6.6"
+ },
+ {
+  "description": "A say that starts with here it is (under 40 characters) counts as a pointer.",
+  "id": "pointer-here-it-is-long-after",
+  "input": "```json\n{\"say\": \"Here it is: the full config\", \"actions\": []}\n```\n\nThe config sets the port to 8080 and enables TLS with the bundled certificate.",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "The config sets the port to 8080 and enables TLS with the bundled certificate.",
+    "thought": ""
+   }
+  },
+  "section": "6.6"
+ },
+ {
+  "description": "Boundary: exactly 40 characters after the block do not replace the pointer (the rule is more than 40).",
+  "id": "pointer-after-exactly-40-chars-kept",
+  "input": "```json\n{\"say\": \"Answered below.\", \"actions\": []}\n```\n\nabcdefghijabcdefghijabcdefghijabcdefghij",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "Answered below.",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ },
+ {
+  "description": "Boundary: 41 characters after the block replace the pointer.",
+  "id": "pointer-after-41-chars-replaces",
+  "input": "```json\n{\"say\": \"Answered below.\", \"actions\": []}\n```\n\nabcdefghijabcdefghijabcdefghijabcdefghijk",
+  "result": {
+   "ok": true,
+   "reply": {
+    "actions": [],
+    "done": true,
+    "explicitDone": false,
+    "ignoredBlocks": 0,
+    "milestone": null,
+    "plan": [],
+    "say": "abcdefghijabcdefghijabcdefghijabcdefghijk",
+    "thought": ""
+   }
+  },
+  "section": "6.7"
+ }
+]
