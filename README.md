@@ -12,8 +12,10 @@ No native tool-calling API. Works with any chat model, including small, cheap an
 [![License: MIT](https://img.shields.io/badge/license-MIT-2F6DB5)](LICENSE)
 [![Spec](https://img.shields.io/badge/spec-v0.1%20draft-6E7781)](SPEC.md)
 [![Conformance](https://img.shields.io/badge/conformance-150%20vectors-2EA44F)](conformance)
+[![npm](https://img.shields.io/npm/v/@heurica/tap?label=npm&color=CB3837)](https://www.npmjs.com/package/@heurica/tap)
+[![PyPI](https://img.shields.io/pypi/v/heurica-tap?label=pypi&color=3775A9)](https://pypi.org/project/heurica-tap/)
 
-[Spec](SPEC.md) · [Conformance](conformance) · [TypeScript](packages/ts) · [Python](packages/python) · [Examples](examples)
+[Website](https://heurica.dev/tap) · [Spec](SPEC.md) · [Conformance](conformance) · [TypeScript](packages/ts) · [Python](packages/python) · [Examples](examples)
 
 </div>
 
