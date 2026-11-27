@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" style="display:block">
+  <rect width="1280" height="640" fill="#14110F"/>
+  <text x="92" y="262" font-family="-apple-system,'SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="176" font-weight="700" letter-spacing="-5" fill="#F3EDE4">TAP</text>
+  <text x="96" y="332" font-family="-apple-system,'SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="38" fill="#A59C90">The Text Action Protocol</text>
+  <text x="96" y="400" font-family="-apple-system,'SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="40" font-weight="600" fill="#FF6A2B">Tool use for any model, in plain text.</text>
+  <g transform="translate(96 500) scale(0.2)">
+    <path d="M256 96 L394 176 L394 336 L256 416 L118 336 L118 176 Z" transform="translate(-118 -96)" fill="none" stroke="#F3EDE4" stroke-width="30" stroke-linejoin="round"/>
+    <path transform="translate(-118 -96)" fill="#FF6A2B" d="M256 186 Q261 246 316 256 Q261 266 256 326 Q251 266 196 256 Q251 246 256 186 Z"/>
+  </g>
+  <text x="170" y="548" font-family="-apple-system,'SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="34" font-weight="500" fill="#F3EDE4">by Heurica</text>
+  <g transform="translate(820 150)" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="23">
+    <rect width="372" height="340" rx="22" fill="#1D1915" stroke="#34302A" stroke-width="2"/>
+    <text x="28" y="56" fill="#A59C90">```json</text>
+    <text x="28" y="100" fill="#F3EDE4">{"say": "Fixing it.",</text>
+    <text x="28" y="140" fill="#F3EDE4"> "actions": [</text>
+    <text x="28" y="180" fill="#FF6A2B">  {"tool": "edit_file"},</text>
+    <text x="28" y="220" fill="#FF6A2B">  {"tool": "shell"}],</text>
+    <text x="28" y="260" fill="#F3EDE4"> "done": false}</text>
+    <text x="28" y="304" fill="#A59C90">```</text>
+  </g>
+</svg>

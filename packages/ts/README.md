@@ -2,18 +2,20 @@
 
 TAP (Text Action Protocol) for TypeScript. A model writes a short note and one fenced JSON block; the host reads the
 block, runs the actions and replies with the results. No native tool-calling API is needed, so TAP works with any chat
-model. The format and parsing rules are specified in [SPEC.md](../../SPEC.md); the API is in [API.md](../API.md).
+model. The format and parsing rules are specified in [SPEC.md](https://github.com/heurica-labs/tap/blob/main/SPEC.md); the API is in [API.md](https://github.com/heurica-labs/tap/blob/main/packages/API.md).
 
-- Zero runtime dependencies. Node 20 or later.
+- Zero runtime dependencies.
 - Lenient parsing: it repairs the usual model slips (trailing commas, Python literals, smart quotes, unescaped newlines,
   missing closing braces) without touching the contents of JSON strings.
-- Passes the shared conformance vectors (150 cases, see `test/fixtures/vectors.json`).
+- Passes the shared conformance vectors (150 cases, see [`conformance/vectors.json`](https://github.com/heurica-labs/tap/blob/main/conformance/vectors.json)).
 
 ## Install
 
 ```sh
 npm install @heurica/tap
 ```
+
+Requirements: Node.js 18 or later. The package is ESM only (`import`, not `require`) and ships its own type declarations.
 
 ## Quick start
 
@@ -87,11 +89,11 @@ Types: `Reply`, `Action`, `ParseResult`, `ToolDef`, `ToolArg`, `Handler`, `ChatF
 
 ```sh
 npm install
-npm test      # type-checks, then runs the Node test runner over the TypeScript sources
+npm test      # type-checks, then runs the Node test runner over the TypeScript sources (needs Node 22.18 or later)
 npm run build # emits dist/ (ESM and .d.ts)
 ```
 
-`src/aliases.ts` is generated from `../../aliases.json` by `npm run gen:aliases`. Commit the output.
+`src/aliases.ts` is generated from [`aliases.json`](https://github.com/heurica-labs/tap/blob/main/aliases.json) by `npm run gen:aliases`. Commit the output.
 
 ## License
 

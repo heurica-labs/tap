@@ -2,15 +2,20 @@
 
 Python library for TAP, the Text Action Protocol. A model uses tools by writing a
 short note and one fenced JSON block. No native tool-calling API is needed, so TAP
-works with any chat model. The package has no runtime dependencies (standard
-library only) and needs Python 3.9 or newer.
+works with any chat model. The protocol is specified in
+[SPEC.md](https://github.com/heurica-labs/tap/blob/main/SPEC.md).
+
+The package has no runtime dependencies (standard library only).
 
 ## Install
 
 ```sh
-pip install heurica-tap          # once published
-pip install -e packages/python   # from a checkout
+pip install heurica-tap
 ```
+
+To work from a checkout of the repository, run `pip install -e .` in `packages/python`.
+
+Requirements: Python 3.9 or newer.
 
 ## Quick start
 
@@ -47,7 +52,8 @@ print(outcome.ok, outcome.answer)
 
 `chat` receives the message list and a `stop` keyword (the list `AGENT_STOPS`). It
 returns the model's reply text. Use any provider here; see
-`examples/openai_compatible.py` in the repository root for an OpenAI-compatible endpoint.
+[`examples/openai_compatible.py`](https://github.com/heurica-labs/tap/blob/main/examples/openai_compatible.py)
+in the repository for an OpenAI-compatible endpoint.
 
 ## API overview
 
@@ -59,7 +65,7 @@ returns the model's reply text. Use any provider here; see
 | `format_result_line(tool, args, status, output)` | One action's line in an observation. |
 | `format_observation(step, lines, skipped=, ignored_blocks=)` | The `<observation>` envelope. |
 | `describe_parse_error(error)` | Explanation sent back when a reply cannot be used. |
-| `validate_tools(tools)` | Checks a catalog against `schema/tools.schema.json`. |
+| `validate_tools(tools)` | Checks a catalog against [`schema/tools.schema.json`](https://github.com/heurica-labs/tap/blob/main/schema/tools.schema.json). |
 | `render_catalog(tools)` | Deterministic text rendering of the catalog. |
 | `build_briefing(tools, instructions=, name=)` | The system prompt: reply format, rules and catalog. |
 | `run_agent(...)` / `run_agent_async(...)` | The loop. Handlers and `chat` may be sync or async. |
@@ -71,11 +77,18 @@ conformance vectors.
 ## Behavior notes
 
 - The parser follows the reference (Anvil's `ActionParser.swift`) and SPEC section 6.
-  The conformance vectors in `conformance/vectors.json` define the exact results.
+  The [conformance vectors](https://github.com/heurica-labs/tap/blob/main/conformance/vectors.json)
+  define the exact results.
 - Python's `json` differs from Foundation in a few places; the parser reproduces the
   reference: duplicate keys keep the first value, NaN and Infinity are rejected, lone
   surrogates are rejected, and integers above 2**53 become floats.
-- Run `python3 -m unittest discover -s tests` from this folder to run the suite,
-  including all conformance vectors.
+- The test suite includes all conformance vectors. It reads `conformance/vectors.json`
+  from a checkout of the repository, so run `python3 -m unittest discover -s tests`
+  from this folder of a checkout.
 - The alias table is generated: `python3 scripts/gen_aliases.py` rebuilds
-  `src/heurica_tap/aliases.py` from `aliases.json`.
+  `src/heurica_tap/aliases.py` from
+  [`aliases.json`](https://github.com/heurica-labs/tap/blob/main/aliases.json).
+
+## License
+
+MIT. See [LICENSE](https://github.com/heurica-labs/tap/blob/main/LICENSE).

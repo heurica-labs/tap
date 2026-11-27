@@ -1,8 +1,30 @@
 {
   "name": "@heurica/tap",
   "version": "0.1.0",
-  "description": "TAP (Text Action Protocol): parse tool-call replies from any chat model, format observations, and run a small agent loop.",
+  "description": "Text Action Protocol: tool use for any model, in plain text. Parser, observation formatter, tool catalog and a small agent loop.",
+  "keywords": [
+    "llm",
+    "agents",
+    "tool-use",
+    "tool-calling",
+    "protocol",
+    "parser",
+    "ai",
+    "function-calling",
+    "json-repair",
+    "text-protocol"
+  ],
   "license": "MIT",
+  "author": "Heurica <hello@heurica.dev>",
+  "homepage": "https://heurica.dev/tap",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heurica-labs/tap.git",
+    "directory": "packages/ts"
+  },
+  "bugs": {
+    "url": "https://github.com/heurica-labs/tap/issues"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,7 +40,10 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "sideEffects": false,
   "scripts": {
@@ -26,7 +51,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/fix-dts.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "tsc -p tsconfig.json --noEmit && node --test --experimental-strip-types test/*.test.ts",
-    "prepublishOnly": "npm run build && npm test"
+    "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
